@@ -1,6 +1,81 @@
+'use client';
+
+import { useState } from 'react';
 import { Mail, Phone, MapPin, Send, MessageSquare, Clock } from 'lucide-react';
 
+type FormState = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  websiteType: string;
+  budget: string;
+  timeline: string;
+  message: string;
+  agreement: boolean;
+};
+
+type SubmitStatus = 'idle' | 'loading' | 'success' | 'error';
+
+const INITIAL_FORM: FormState = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  phone: '',
+  websiteType: '',
+  budget: '',
+  timeline: '',
+  message: '',
+  agreement: false,
+};
+
 export function Contact() {
+  const [form, setForm] = useState<FormState>(INITIAL_FORM);
+  const [status, setStatus] = useState<SubmitStatus>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value, type } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('loading');
+    setErrorMsg('');
+
+    if (!form.agreement) {
+      setErrorMsg('Please agree to the terms before submitting.');
+      setStatus('error');
+      return;
+    }
+
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Something went wrong.');
+      }
+
+      setStatus('success');
+      setForm(INITIAL_FORM);
+    } catch (err: any) {
+      setStatus('error');
+      setErrorMsg(err.message || 'Failed to send message. Please try again.');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -36,8 +111,8 @@ export function Contact() {
                   </div>
                   <div>
                     <div className="font-semibold text-gray-900 mb-1">Email</div>
-                    <a href="mailto:stackrixlabs@gmail.com" className="text-gray-600 hover:text-blue-600 transition-colors">
-                      stackrixlabs@gmail.com
+                    <a href="mailto:hello@webcraft.com" className="text-gray-600 hover:text-blue-600 transition-colors">
+                      hello@webcraft.com
                     </a>
                     <p className="text-sm text-gray-500 mt-1">I typically respond within 24 hours</p>
                   </div>
@@ -62,9 +137,7 @@ export function Contact() {
                   </div>
                   <div>
                     <div className="font-semibold text-gray-900 mb-1">Location</div>
-                    <p className="text-gray-600">
-                      San Francisco, CA
-                    </p>
+                    <p className="text-gray-600">San Francisco, CA</p>
                     <p className="text-sm text-gray-500 mt-1">Available for remote projects worldwide</p>
                   </div>
                 </div>
@@ -103,7 +176,21 @@ export function Contact() {
                 Send Me a Message
               </h2>
 
-              <form className="space-y-6">
+              {/* Success Banner */}
+              {status === 'success' && (
+                <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg text-green-700 font-medium">
+                  ✅ Message sent! I'll get back to you within 24 hours.
+                </div>
+              )}
+
+              {/* Error Banner */}
+              {status === 'error' && (
+                <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 font-medium">
+                  ❌ {errorMsg}
+                </div>
+              )}
+
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -111,7 +198,11 @@ export function Contact() {
                     </label>
                     <input
                       type="text"
+                      name="firstName"
+                      value={form.firstName}
+                      onChange={handleChange}
                       placeholder="John"
+                      required
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent text-gray-900 placeholder-gray-400"
                     />
                   </div>
@@ -122,7 +213,11 @@ export function Contact() {
                     </label>
                     <input
                       type="text"
+                      name="lastName"
+                      value={form.lastName}
+                      onChange={handleChange}
                       placeholder="Doe"
+                      required
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent text-gray-900 placeholder-gray-400"
                     />
                   </div>
@@ -134,7 +229,11 @@ export function Contact() {
                   </label>
                   <input
                     type="email"
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
                     placeholder="john@example.com"
+                    required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent text-gray-900 placeholder-gray-400"
                   />
                 </div>
@@ -145,6 +244,9 @@ export function Contact() {
                   </label>
                   <input
                     type="tel"
+                    name="phone"
+                    value={form.phone}
+                    onChange={handleChange}
                     placeholder="+1 (555) 123-4567"
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent text-gray-900 placeholder-gray-400"
                   />
@@ -154,7 +256,13 @@ export function Contact() {
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Website Type *
                   </label>
-                  <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent text-gray-900">
+                  <select
+                    name="websiteType"
+                    value={form.websiteType}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent text-gray-900"
+                  >
                     <option value="">Select a type...</option>
                     <option>Business Website</option>
                     <option>E-Commerce Store</option>
@@ -170,7 +278,12 @@ export function Contact() {
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Budget Range
                   </label>
-                  <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent text-gray-900">
+                  <select
+                    name="budget"
+                    value={form.budget}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent text-gray-900"
+                  >
                     <option value="">Select your budget...</option>
                     <option>Less than $5,000</option>
                     <option>$5,000 - $10,000</option>
@@ -185,7 +298,12 @@ export function Contact() {
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Project Timeline
                   </label>
-                  <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent text-gray-900">
+                  <select
+                    name="timeline"
+                    value={form.timeline}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent text-gray-900"
+                  >
                     <option value="">When do you need it?</option>
                     <option>ASAP (1-2 weeks)</option>
                     <option>1 month</option>
@@ -200,7 +318,11 @@ export function Contact() {
                     Project Details *
                   </label>
                   <textarea
+                    name="message"
+                    value={form.message}
+                    onChange={handleChange}
                     rows={5}
+                    required
                     placeholder="Tell me about your project, goals, and any specific requirements..."
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent text-gray-900 placeholder-gray-400 resize-none"
                   ></textarea>
@@ -213,6 +335,9 @@ export function Contact() {
                   <input
                     type="checkbox"
                     id="agreement"
+                    name="agreement"
+                    checked={form.agreement}
+                    onChange={handleChange}
                     className="mt-1 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-600"
                   />
                   <label htmlFor="agreement" className="text-sm text-gray-600">
@@ -222,10 +347,23 @@ export function Contact() {
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-lg hover:shadow-lg transition-shadow font-semibold flex items-center justify-center gap-2"
+                  disabled={status === 'loading'}
+                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-lg hover:shadow-lg transition-shadow font-semibold flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Send Message
-                  <Send className="size-5" />
+                  {status === 'loading' ? (
+                    <>
+                      <svg className="animate-spin size-5" viewBox="0 0 24 24" fill="none">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                      </svg>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      Send Message
+                      <Send className="size-5" />
+                    </>
+                  )}
                 </button>
               </form>
             </div>
@@ -277,7 +415,7 @@ export function Contact() {
         </div>
       </section>
 
-      {/* Map or Additional CTA */}
+      {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-4xl font-bold mb-6">
@@ -287,13 +425,13 @@ export function Contact() {
             Every great website starts with a conversation. I'm excited to hear about your project and help you succeed online.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <a 
-              href="mailto:stackrixlabs@gmail.com"
+            <a
+              href="mailto:hello@webcraft.com"
               className="bg-white text-blue-600 px-8 py-4 rounded-lg hover:bg-blue-50 transition-colors font-semibold"
             >
-              Email Us
+              Email Me Directly
             </a>
-            <a 
+            <a
               href="tel:+15551234567"
               className="bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-lg border border-white/30 hover:bg-white/20 transition-colors font-semibold"
             >

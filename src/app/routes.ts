@@ -18,6 +18,6 @@ export const router = createBrowserRouter([
   }
 ],
 {
-  basename: '/software-consultant-portfolio'
+  basename: '/StackrixLabsFrontend'
 }
 );
