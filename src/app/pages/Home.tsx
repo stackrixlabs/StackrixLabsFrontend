@@ -73,22 +73,6 @@ export function Home() {
                   View Portfolio
                 </Link>
               </div>
-
-              {/* Trust indicators */}
-              <div className="mt-12 flex items-center gap-8">
-                <div>
-                  <div className="text-3xl font-bold text-gray-900">50+</div>
-                  <div className="text-sm text-gray-600">Projects Delivered</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-gray-900">100%</div>
-                  <div className="text-sm text-gray-600">Client Satisfaction</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-gray-900">5★</div>
-                  <div className="text-sm text-gray-600">Average Rating</div>
-                </div>
-              </div>
             </div>
 
             <div className="relative">

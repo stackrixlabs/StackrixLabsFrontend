@@ -20,7 +20,7 @@ export function Navigation() {
             </div>
             <div>
               <div className="font-bold text-xl text-gray-900">Stackrix Labs</div>
-              <div className="text-xs text-gray-600">Software Solution Consultant</div>
+              <div className="text-xs text-gray-600">Software Solutions</div>
             </div>
           </Link>
 
