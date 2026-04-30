@@ -5,7 +5,7 @@
 // The View never directly touches the Model — it only talks to the ViewModel.
 // ─────────────────────────────────────────────
 
-import { useState } from 'react';
+import { useState, type ChangeEvent, type FormEvent } from 'react';
 import {
   FormState,
   SubmitStatus,
@@ -28,17 +28,26 @@ export function useContactViewModel() {
 
   // Handles any input, textarea, select, or checkbox change
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement> | {
+      target: {
+        checked?: boolean;
+        name?: string;
+        type?: string;
+        value: unknown;
+      };
+    }
   ) => {
     const { name, value, type } = e.target;
+    if (!name) return;
+
     setForm((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
+      [name]: type === 'checkbox' ? Boolean(e.target.checked) : String(value ?? ''),
     }));
   };
 
   // Validates form before calling the Model's submit function
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setStatus('loading');
     setErrorMsg('');

@@ -1,15 +1,16 @@
+import { Box } from '@mui/material';
 import { Outlet } from 'react-router';
 import { Navigation } from './components/Navigation';
 import { Footer } from './components/Footer';
 
 export function Root() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Navigation />
-      <main className="flex-1">
+      <Box component="main" sx={{ flex: 1 }}>
         <Outlet />
-      </main>
+      </Box>
       <Footer />
-    </div>
+    </Box>
   );
 }

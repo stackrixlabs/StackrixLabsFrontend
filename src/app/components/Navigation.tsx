@@ -1,100 +1,178 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router';
-import { Menu, X, Code2 } from 'lucide-react';
+import { Link as RouterLink, useLocation } from 'react-router';
+import {
+  AppBar,
+  Box,
+  Button,
+  Container,
+  Divider,
+  Drawer,
+  IconButton,
+  List,
+  ListItemButton,
+  ListItemText,
+  Stack,
+  Toolbar,
+  Typography,
+} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import CodeIcon from '@mui/icons-material/Code';
+import MenuIcon from '@mui/icons-material/Menu';
+
+const navItems = [
+  { label: 'Home', to: '/' },
+  { label: 'About', to: '/about' },
+  { label: 'Portfolio', to: '/portfolio' },
+];
 
 export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
 
-  const isActive = (path: string) => {
-    return location.pathname === path;
-  };
+  const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
-      <div className="max-w-7xl mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="bg-gradient-to-br from-blue-600 to-purple-600 p-2 rounded-lg">
-              <Code2 className="size-6 text-white" />
-            </div>
-            <div>
-              <div className="font-bold text-xl text-gray-900">Stackrix Labs</div>
-              <div className="text-xs text-gray-600">Software Solutions</div>
-            </div>
-          </Link>
-
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-6">
-            <Link 
-              to="/" 
-              className={`transition-colors ${isActive('/') ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600'}`}
-            >
-              Home
-            </Link>
-            <Link 
-              to="/about" 
-              className={`transition-colors ${isActive('/about') ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600'}`}
-            >
-              About
-            </Link>
-            <Link 
-              to="/portfolio" 
-              className={`transition-colors ${isActive('/portfolio') ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600'}`}
-            >
-              Portfolio
-            </Link>
-            <Link 
-              to="/contact" 
-              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:shadow-lg transition-shadow"
-            >
-              Get Started
-            </Link>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button 
-            className="md:hidden"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+    <AppBar
+      position="fixed"
+      elevation={0}
+      sx={{
+        bgcolor: 'rgba(255, 255, 255, 0.94)',
+        backdropFilter: 'blur(14px)',
+        borderBottom: '1px solid',
+        borderColor: 'divider',
+        color: 'text.primary',
+        zIndex: (theme) => theme.zIndex.drawer + 1,
+      }}
+    >
+      <Container maxWidth="lg">
+        <Toolbar disableGutters sx={{ minHeight: 72, justifyContent: 'space-between' }}>
+          <Box
+            component={RouterLink}
+            to="/"
+            sx={{
+              alignItems: 'center',
+              color: 'inherit',
+              display: 'flex',
+              gap: 1.5,
+              textDecoration: 'none',
+            }}
           >
-            {mobileMenuOpen ? <X className="size-6" /> : <Menu className="size-6" />}
-          </button>
-        </div>
+            <Box
+              sx={{
+                alignItems: 'center',
+                bgcolor: 'primary.main',
+                backgroundImage: 'linear-gradient(135deg, #2563eb, #7c3aed)',
+                borderRadius: 1,
+                color: 'primary.contrastText',
+                display: 'flex',
+                height: 40,
+                justifyContent: 'center',
+                width: 40,
+              }}
+            >
+              <CodeIcon fontSize="small" />
+            </Box>
+            <Box>
+              <Typography variant="h6" component="div" sx={{ fontWeight: 800, lineHeight: 1.1 }}>
+                Stackrix Labs
+              </Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ display: 'block', lineHeight: 1.2 }}>
+                Software Solutions
+              </Typography>
+            </Box>
+          </Box>
 
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 space-y-3">
-            <Link 
-              to="/" 
-              className={`block py-2 transition-colors ${isActive('/') ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600'}`}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Home
-            </Link>
-            <Link 
-              to="/about" 
-              className={`block py-2 transition-colors ${isActive('/about') ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600'}`}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              About
-            </Link>
-            <Link 
-              to="/portfolio" 
-              className={`block py-2 transition-colors ${isActive('/portfolio') ? 'text-blue-600 font-semibold' : 'text-gray-700 hover:text-blue-600'}`}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Portfolio
-            </Link>
-            <Link 
-              to="/contact" 
-              className="block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:shadow-lg transition-shadow"
-              onClick={() => setMobileMenuOpen(false)}
+          <Stack direction="row" spacing={1.25} sx={{ display: { xs: 'none', md: 'flex' } }}>
+            {navItems.map((item) => (
+              <Button
+                key={item.to}
+                component={RouterLink}
+                to={item.to}
+                color={isActive(item.to) ? 'primary' : 'inherit'}
+                variant="text"
+                sx={{
+                  bgcolor: isActive(item.to) ? 'rgba(37, 99, 235, 0.08)' : 'transparent',
+                  color: isActive(item.to) ? 'primary.main' : 'text.secondary',
+                  fontWeight: isActive(item.to) ? 800 : 700,
+                  px: 1.5,
+                }}
+              >
+                {item.label}
+              </Button>
+            ))}
+            <Button
+              component={RouterLink}
+              to="/contact"
+              variant="contained"
+              sx={{
+                backgroundImage: 'linear-gradient(90deg, #2563eb, #7c3aed)',
+                ml: 1,
+                px: 3,
+                '&:hover': {
+                  backgroundImage: 'linear-gradient(90deg, #1d4ed8, #6d28d9)',
+                },
+              }}
             >
               Get Started
-            </Link>
-          </div>
-        )}
-      </div>
-    </nav>
+            </Button>
+          </Stack>
+
+          <IconButton
+            aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            color="inherit"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+            sx={{ display: { xs: 'inline-flex', md: 'none' } }}
+          >
+            {mobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
+          </IconButton>
+        </Toolbar>
+      </Container>
+
+      <Drawer
+        anchor="right"
+        open={mobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
+        PaperProps={{
+          sx: {
+            pt: 9,
+            width: 'min(88vw, 340px)',
+          },
+        }}
+      >
+        <Box sx={{ px: 2 }}>
+          <List disablePadding>
+            {navItems.map((item) => (
+              <ListItemButton
+                key={item.to}
+                component={RouterLink}
+                to={item.to}
+                selected={isActive(item.to)}
+                onClick={() => setMobileMenuOpen(false)}
+                sx={{ borderRadius: 1, mb: 0.5 }}
+              >
+                <ListItemText primary={item.label} primaryTypographyProps={{ fontWeight: 800 }} />
+              </ListItemButton>
+            ))}
+          </List>
+          <Divider sx={{ my: 2 }} />
+          <Button
+            component={RouterLink}
+            to="/contact"
+            fullWidth
+            size="large"
+            variant="contained"
+            onClick={() => setMobileMenuOpen(false)}
+            sx={{
+              backgroundImage: 'linear-gradient(90deg, #2563eb, #7c3aed)',
+              '&:hover': {
+                backgroundImage: 'linear-gradient(90deg, #1d4ed8, #6d28d9)',
+              },
+            }}
+          >
+            Get Started
+          </Button>
+        </Box>
+      </Drawer>
+    </AppBar>
   );
 }

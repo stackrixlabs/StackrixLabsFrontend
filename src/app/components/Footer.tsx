@@ -1,67 +1,130 @@
-import { Link } from 'react-router';
-import { Code2, Mail, Linkedin, Github, Twitter } from 'lucide-react';
+import { Link as RouterLink } from 'react-router';
+import {
+  Box,
+  Container,
+  Divider,
+  IconButton,
+  Link,
+  Stack,
+  Typography,
+} from '@mui/material';
+import CodeIcon from '@mui/icons-material/Code';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import MailIcon from '@mui/icons-material/Mail';
+import TwitterIcon from '@mui/icons-material/Twitter';
+
+const quickLinks = [
+  { label: 'Home', to: '/' },
+  { label: 'About', to: '/about' },
+  { label: 'Portfolio', to: '/portfolio' },
+  { label: 'Contact', to: '/contact' },
+];
+
+const services = ['Custom Websites', 'E-commerce Solutions', 'Web Applications', 'Consulting Services'];
 
 export function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-300 py-12">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="bg-gradient-to-br from-blue-600 to-purple-600 p-2 rounded-lg">
-                <Code2 className="size-5 text-white" />
-              </div>
-              <div className="font-bold text-xl text-white">Stackrix</div>
-            </div>
-            <p className="text-sm">
+    <Box component="footer" sx={{ bgcolor: '#111827', color: 'grey.300', py: 6 }}>
+      <Container maxWidth="lg">
+        <Box
+          sx={{
+            display: 'grid',
+            gap: 4,
+            gridTemplateColumns: {
+              xs: '1fr',
+              sm: 'repeat(2, minmax(0, 1fr))',
+              md: '1.3fr repeat(3, 1fr)',
+            },
+            mb: 4,
+          }}
+        >
+          <Box>
+            <Stack direction="row" spacing={1.25} alignItems="center" sx={{ mb: 2 }}>
+              <Box
+                sx={{
+                  alignItems: 'center',
+                  backgroundImage: 'linear-gradient(135deg, #2563eb, #7c3aed)',
+                  borderRadius: 1,
+                  color: 'white',
+                  display: 'flex',
+                  height: 36,
+                  justifyContent: 'center',
+                  width: 36,
+                }}
+              >
+                <CodeIcon fontSize="small" />
+              </Box>
+              <Typography variant="h6" sx={{ color: 'white', fontWeight: 800 }}>
+                Stackrix
+              </Typography>
+            </Stack>
+            <Typography variant="body2" sx={{ maxWidth: 260 }}>
               Creating exceptional websites tailored to your business needs.
-            </p>
-          </div>
+            </Typography>
+          </Box>
 
-          <div>
-            <h4 className="font-semibold text-white mb-4">Quick Links</h4>
-            <ul className="space-y-2 text-sm">
-              <li><Link to="/" className="hover:text-blue-400 transition-colors">Home</Link></li>
-              <li><Link to="/about" className="hover:text-blue-400 transition-colors">About</Link></li>
-              <li><Link to="/portfolio" className="hover:text-blue-400 transition-colors">Portfolio</Link></li>
-              <li><Link to="/contact" className="hover:text-blue-400 transition-colors">Contact</Link></li>
-            </ul>
-          </div>
+          <Box>
+            <Typography sx={{ color: 'white', fontWeight: 800, mb: 2 }}>Quick Links</Typography>
+            <Stack spacing={1}>
+              {quickLinks.map((item) => (
+                <Link
+                  key={item.to}
+                  component={RouterLink}
+                  to={item.to}
+                  underline="none"
+                  color="inherit"
+                  variant="body2"
+                  sx={{ width: 'fit-content', '&:hover': { color: 'primary.light' } }}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </Stack>
+          </Box>
 
-          <div>
-            <h4 className="font-semibold text-white mb-4">Services</h4>
-            <ul className="space-y-2 text-sm">
-              <li>Custom Websites</li>
-              <li>E-commerce Solutions</li>
-              <li>Web Applications</li>
-              <li>Consulting Services</li>
-            </ul>
-          </div>
+          <Box>
+            <Typography sx={{ color: 'white', fontWeight: 800, mb: 2 }}>Services</Typography>
+            <Stack component="ul" spacing={1} sx={{ listStyle: 'none', m: 0, p: 0 }}>
+              {services.map((service) => (
+                <Typography key={service} component="li" variant="body2">
+                  {service}
+                </Typography>
+              ))}
+            </Stack>
+          </Box>
 
-          <div>
-            <h4 className="font-semibold text-white mb-4">Connect</h4>
-            <div className="flex gap-3 mb-4">
-              <a href="#" className="bg-gray-800 p-2 rounded-lg hover:bg-blue-600 transition-colors">
-                <Linkedin className="size-5" />
-              </a>
-              <a href="#" className="bg-gray-800 p-2 rounded-lg hover:bg-blue-600 transition-colors">
-                <Github className="size-5" />
-              </a>
-              <a href="#" className="bg-gray-800 p-2 rounded-lg hover:bg-blue-600 transition-colors">
-                <Twitter className="size-5" />
-              </a>
-            </div>
-            <a href="mailto:stackrixlabs@gmail.com" className="flex items-center gap-2 text-sm hover:text-blue-400 transition-colors">
-              <Mail className="size-4" />
+          <Box>
+            <Typography sx={{ color: 'white', fontWeight: 800, mb: 2 }}>Connect</Typography>
+            <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
+              <IconButton aria-label="LinkedIn" href="#" sx={{ bgcolor: '#1f2937', color: 'white', '&:hover': { bgcolor: 'primary.main' } }}>
+                <LinkedInIcon fontSize="small" />
+              </IconButton>
+              <IconButton aria-label="GitHub" href="#" sx={{ bgcolor: '#1f2937', color: 'white', '&:hover': { bgcolor: 'primary.main' } }}>
+                <GitHubIcon fontSize="small" />
+              </IconButton>
+              <IconButton aria-label="Twitter" href="#" sx={{ bgcolor: '#1f2937', color: 'white', '&:hover': { bgcolor: 'primary.main' } }}>
+                <TwitterIcon fontSize="small" />
+              </IconButton>
+            </Stack>
+            <Link
+              href="mailto:stackrixlabs@gmail.com"
+              underline="none"
+              color="inherit"
+              variant="body2"
+              sx={{ alignItems: 'center', display: 'inline-flex', gap: 1, '&:hover': { color: 'primary.light' } }}
+            >
+              <MailIcon fontSize="small" />
               stackrixlabs@gmail.com
-            </a>
-          </div>
-        </div>
+            </Link>
+          </Box>
+        </Box>
 
-        <div className="border-t border-gray-800 pt-8 text-center text-sm">
-          <p>&copy; 2026 Stackrix Labs. All rights reserved.</p>
-        </div>
-      </div>
-    </footer>
+        <Divider sx={{ borderColor: '#1f2937', mb: 3 }} />
+        <Typography variant="body2" textAlign="center">
+          &copy; 2026 Stackrix Labs. All rights reserved.
+        </Typography>
+      </Container>
+    </Box>
   );
 }
