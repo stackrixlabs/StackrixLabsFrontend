@@ -56,7 +56,7 @@ export function Footer() {
                 <CodeIcon fontSize="small" />
               </Box>
               <Typography variant="h6" sx={{ color: 'white', fontWeight: 800 }}>
-                Stackrix
+                 Stackrix Labs
               </Typography>
             </Stack>
             <Typography variant="body2" sx={{ maxWidth: 260 }}>

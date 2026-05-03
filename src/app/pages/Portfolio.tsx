@@ -25,7 +25,6 @@ import RestaurantIcon from '@mui/icons-material/Restaurant';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import SchoolIcon from '@mui/icons-material/School';
 import SearchIcon from '@mui/icons-material/Search';
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 
@@ -156,7 +155,7 @@ export function Portfolio() {
             Recent Projects
           </Typography>
           <Typography color="text.secondary" sx={{ fontSize: { xs: 18, md: 20 }, maxWidth: 840, mx: 'auto' }}>
-            Explore a selection of websites I&apos;ve built for clients across different industries. Each project is crafted with care and tailored to specific business goals.
+            Explore a selection of websites we've built for clients across different industries. Each project is crafted with care and tailored to specific business goals.
           </Typography>
         </Container>
       </Box>
@@ -174,8 +173,8 @@ export function Portfolio() {
       <Box component="section" sx={{ bgcolor: '#f9fafb', py: { xs: 8, md: 10 } }}>
         <Container maxWidth="lg">
           <SectionIntro
-            title="What I Can Build For You"
-            text="From simple landing pages to complex web applications, I have experience building all types of websites."
+            title="What We Can Build For You"
+            text="From simple landing pages to complex web applications, we have experience building all types of software."
           />
           <Box sx={{ display: 'grid', gap: 2.5, gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' } }}>
             {projectTypes.map((type) => (
@@ -193,7 +192,7 @@ export function Portfolio() {
                 Every Project Follows a Proven Process
               </Typography>
               <Typography color="text.secondary" sx={{ mb: 4 }}>
-                Whether you need a simple brochure website or a complex e-commerce platform, I follow a structured approach to ensure your project succeeds.
+                Whether you need a simple brochure website or a complex e-commerce platform, We follow a structured approach to ensure your project succeeds.
               </Typography>
               <Stack spacing={3}>
                 {processSteps.map((step) => (
@@ -207,7 +206,7 @@ export function Portfolio() {
                 Ready to Start Your Project?
               </Typography>
               <Typography sx={{ color: 'rgba(255, 255, 255, 0.78)', mb: 4 }}>
-                Let&apos;s discuss your website needs and create something exceptional together. Get a free consultation and project quote.
+                Let's discuss your website needs and create something exceptional together. Get a free consultation and project quote.
               </Typography>
               <Stack spacing={1.5} sx={{ mb: 4 }}>
                 {['Free initial consultation', 'Detailed project proposal', 'Transparent pricing', 'Flexible timeline options'].map((item) => (

@@ -5,15 +5,19 @@
 // The View never directly touches the Model — it only talks to the ViewModel.
 // ─────────────────────────────────────────────
 
-import { useState, type ChangeEvent, type FormEvent } from 'react';
+import { useState, type ChangeEvent, type SubmitEvent } from 'react';
 import {
   FormState,
   SubmitStatus,
   INITIAL_FORM,
-  submitContactForm,
-} from './contactModel';
+  SendEmailAsync,
+} from '../api/StackrixLabsBackendApi';
 
-export function useContactViewModel() {
+/**
+ * Custom hook to manage the contact form state and behavior.
+ * @returns All the state and handlers needed by the Contact View.
+ */
+export function ContactViewModel() {
   // ── State ──────────────────────────────────
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
   const [status, setStatus] = useState<SubmitStatus>('idle');
@@ -47,11 +51,11 @@ export function useContactViewModel() {
   };
 
   // Validates form before calling the Model's submit function
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: SubmitEvent) => {
     e.preventDefault();
     setStatus('loading');
     setErrorMsg('');
-
+    
     // Validation lives here in the ViewModel, not in the View
     if (!form.agreement) {
       setErrorMsg('Please agree to the terms before submitting.');
@@ -61,12 +65,16 @@ export function useContactViewModel() {
 
     try {
       // ViewModel calls the Model — View never does this directly
-      await submitContactForm(form);
+      await SendEmailAsync(form);
       setStatus('success');
       setForm(INITIAL_FORM);
-    } catch (err: any) {
+    } catch (err: unknown) {
       setStatus('error');
-      setErrorMsg(err.message || 'Failed to send message. Please try again.');
+      setErrorMsg(
+        err instanceof Error
+          ? err.message
+          : 'Failed to send message. Please try again.',
+      );
     }
   };
 

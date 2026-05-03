@@ -56,7 +56,7 @@ const services = [
   },
   {
     title: 'Design & UX',
-    text: 'Beautiful, intuitive interfaces that users love. I focus on creating engaging experiences that convert visitors into customers.',
+    text: 'Beautiful, intuitive interfaces that users love. We focus on creating engaging experiences that convert visitors into customers.',
     icon: PaletteIcon,
     color: '#7c3aed',
     tint: '#f5f3ff',
@@ -64,7 +64,7 @@ const services = [
   },
   {
     title: 'Full-Service',
-    text: 'From initial concept to launch and beyond. I handle everything including hosting, maintenance, and ongoing support.',
+    text: 'From initial concept to launch and beyond. We handle everything including hosting, maintenance, and ongoing support.',
     icon: RocketLaunchIcon,
     color: '#db2777',
     tint: '#fdf2f8',
@@ -91,7 +91,7 @@ const reasons = [
   },
   {
     title: 'Client-Focused Approach',
-    text: 'Your vision guides every decision. I work closely with you throughout the project.',
+    text: 'Your vision guides every decision. We work closely with you throughout the project.',
     icon: GroupsIcon,
     color: '#7c3aed',
     tint: '#ede9fe',
@@ -153,7 +153,7 @@ export function Home() {
               }}
             />
             <Typography variant="h1" sx={{ fontSize: { xs: 44, md: 72 }, mb: 3 }}>
-              We provide custom-built software services for businesses of all sizes
+              We provide custom-built software services for businesses of all types and sizes
             </Typography>
             <Typography sx={{ color: 'rgba(255, 255, 255, 0.84)', fontSize: { xs: 18, md: 21 }, maxWidth: 720, mb: 4 }}>
               We specialize in building custom software solutions tailored to your unique business needs. From simple landing pages to complex software applications.
@@ -186,7 +186,7 @@ export function Home() {
       <Box component="section" sx={{ py: { xs: 8, md: 10 } }}>
         <Container maxWidth="lg">
           <SectionIntro
-            eyebrow="WHAT I DO"
+            eyebrow="WHAT WE DO"
             title="Websites Built For Your Success"
             text="I create custom web solutions that help businesses thrive online. Every project is tailored to your specific goals and requirements."
           />
@@ -204,7 +204,7 @@ export function Home() {
           <SectionIntro
             eyebrow="VERSATILE SOLUTIONS"
             title="Any Type of Website You Need"
-            text="No matter what kind of website you envision, I have the expertise to bring it to life."
+            text="No matter what kind of website you envision, we have the expertise to bring it to life."
           />
 
           <Box sx={{ display: 'grid', gap: 2.5, gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' } }}>
@@ -234,7 +234,7 @@ export function Home() {
                 Your Success Is My Priority
               </Typography>
               <Typography color="text.secondary" sx={{ mb: 4 }}>
-                As a dedicated Software Solution Consultant, I bring technical expertise and creative problem-solving to every project.
+                As a dedicated Software Consultant, we bring technical expertise and creative problem-solving to every project.
               </Typography>
 
               <Stack spacing={3}>
@@ -285,7 +285,7 @@ export function Home() {
             Ready to Build Your Dream Website?
           </Typography>
           <Typography color="text.secondary" sx={{ fontSize: { xs: 18, md: 20 }, mb: 4 }}>
-            Let&apos;s discuss your project and create something amazing together.
+            Let's discuss your project and create something amazing together.
           </Typography>
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="center">
             <Button component={RouterLink} to="/contact" size="large" variant="contained" endIcon={<ArrowForwardIcon />}>

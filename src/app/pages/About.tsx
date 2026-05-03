@@ -8,7 +8,6 @@ import {
   CardContent,
   Container,
   Paper,
-  Stack,
   Typography,
 } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -18,7 +17,6 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import LayersIcon from '@mui/icons-material/Layers';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import PublicIcon from '@mui/icons-material/Public';
-import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import StorageIcon from '@mui/icons-material/Storage';
 import TrackChangesIcon from '@mui/icons-material/TrackChanges';
@@ -43,7 +41,7 @@ function ImageWithFallback({ src, alt, fallbackSrc = '/images/fallback.png', ...
 const expertise = [
   {
     title: 'Full-Stack Development',
-    text: 'End-to-end development using React, Node.js, and modern frameworks to build scalable web applications.',
+    text: 'End-to-end development using software tools such as React, Node.js, and modern frameworks to build scalable web applications.',
     icon: CodeIcon,
     color: '#2563eb',
   },
@@ -79,21 +77,6 @@ const expertise = [
   },
 ];
 
-const technologies = [
-  { name: 'React', category: 'Frontend' },
-  { name: 'TypeScript', category: 'Language' },
-  { name: 'Node.js', category: 'Backend' },
-  { name: 'Material UI', category: 'Design System' },
-  { name: 'Next.js', category: 'Framework' },
-  { name: 'MongoDB', category: 'Database' },
-  { name: 'PostgreSQL', category: 'Database' },
-  { name: 'Figma', category: 'Design' },
-  { name: 'Git', category: 'Version Control' },
-  { name: 'AWS', category: 'Cloud' },
-  { name: 'Vercel', category: 'Hosting' },
-  { name: 'REST APIs', category: 'Integration' },
-];
-
 const process = [
   {
     title: 'Discovery',
@@ -126,7 +109,7 @@ const values = [
   },
   {
     title: 'Client-First',
-    text: "Your success is my success. I'm committed to building lasting relationships and ongoing support.",
+    text: "Your success is our success. We're committed to building software that could excel your business productivity.",
     icon: FavoriteIcon,
   },
 ];
@@ -139,16 +122,16 @@ export function About() {
           <Box sx={{ alignItems: 'center', display: 'grid', gap: { xs: 5, md: 7 }, gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' } }}>
             <Box>
               <Typography color="primary" sx={{ fontWeight: 800, mb: 2 }}>
-                ABOUT ME
+                ABOUT US
               </Typography>
               <Typography variant="h1" sx={{ fontSize: { xs: 40, md: 58 }, mb: 3 }}>
-                Software Solution Consultant Specializing in Web Development
+                Stackrix Labs specializes on delivering software of any kinds
               </Typography>
               <Typography color="text.secondary" sx={{ fontSize: { xs: 18, md: 20 }, mb: 4 }}>
-                I&apos;m passionate about transforming ideas into exceptional digital experiences. With expertise in modern web technologies, I help businesses establish their online presence through custom-built websites.
+                We're passionate about transforming ideas into exceptional digital experiences. With expertise in software development, we help businesses establish their presence through custom-built software.
               </Typography>
               <Button component={RouterLink} to="/contact" size="large" variant="contained" endIcon={<ArrowForwardIcon />}>
-                Let&apos;s Work Together
+                Let's Work Together
               </Button>
             </Box>
 
@@ -166,8 +149,8 @@ export function About() {
       <Box component="section" sx={{ py: { xs: 8, md: 10 } }}>
         <Container maxWidth="lg">
           <SectionIntro
-            title="My Expertise"
-            text="As a Software Solution Consultant, I offer comprehensive web development services to bring your vision to life."
+            title="Our Expertise"
+            text="As a Software Solution Consultant, we offer comprehensive web development services to bring your vision to life."
           />
 
           <Box sx={{ display: 'grid', gap: 3, gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' } }}>
@@ -178,30 +161,10 @@ export function About() {
         </Container>
       </Box>
 
-      <Box component="section" sx={{ bgcolor: '#f9fafb', py: { xs: 8, md: 10 } }}>
-        <Container maxWidth="lg">
-          <SectionIntro
-            title="Technologies I Work With"
-            text="I use modern, battle-tested technologies to ensure your website is fast, secure, and maintainable."
-          />
-
-          <Box sx={{ display: 'grid', gap: 2, gridTemplateColumns: { xs: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)', lg: 'repeat(6, 1fr)' } }}>
-            {technologies.map((tech) => (
-              <Paper key={tech.name} variant="outlined" sx={{ p: 2.5, textAlign: 'center' }}>
-                <Typography sx={{ fontWeight: 800, mb: 0.5 }}>{tech.name}</Typography>
-                <Typography color="text.secondary" variant="caption">
-                  {tech.category}
-                </Typography>
-              </Paper>
-            ))}
-          </Box>
-        </Container>
-      </Box>
-
       <Box component="section" sx={{ py: { xs: 8, md: 10 } }}>
         <Container maxWidth="lg">
           <SectionIntro
-            title="My Development Process"
+            title="Our Development Process"
             text="A proven approach that ensures successful project delivery every time."
           />
 
@@ -227,10 +190,10 @@ export function About() {
         <Container maxWidth="lg">
           <Box sx={{ textAlign: 'center', maxWidth: 760, mx: 'auto', mb: 6 }}>
             <Typography variant="h2" sx={{ fontSize: { xs: 34, md: 44 }, mb: 1.5 }}>
-              What I Stand For
+              What We Stand For
             </Typography>
             <Typography sx={{ color: 'rgba(255, 255, 255, 0.78)' }}>
-              The principles that guide every project I undertake.
+              The principles that guide every project we undertake.
             </Typography>
           </Box>
 
@@ -245,10 +208,10 @@ export function About() {
       <Box component="section" sx={{ py: { xs: 8, md: 10 }, textAlign: 'center' }}>
         <Container maxWidth="md">
           <Typography variant="h2" sx={{ fontSize: { xs: 34, md: 44 }, mb: 2 }}>
-            Let&apos;s Create Something Amazing
+            Let's Create Something Amazing
           </Typography>
           <Typography color="text.secondary" sx={{ fontSize: { xs: 18, md: 20 }, mb: 4 }}>
-            Ready to start your project? Get in touch and let&apos;s discuss how I can help bring your vision to life.
+            Ready to start your project? Get in touch and let's discuss how we can help bring your vision to life.
           </Typography>
           <Button component={RouterLink} to="/contact" size="large" variant="contained" endIcon={<ArrowForwardIcon />}>
             Get Started Today
