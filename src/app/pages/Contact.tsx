@@ -20,7 +20,8 @@ import type { ReactNode } from 'react';
 import EmailIcon from '@mui/icons-material/Email';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SendIcon from '@mui/icons-material/Send';
-import { ContactViewModel } from './UseContactViewModel';
+import { useState, type ChangeEvent, type SubmitEvent } from 'react';
+import { SendEmailAsync, FormState, SubmitStatus, INITIAL_FORM } from '../api/StackrixLabsBackendApi';
 
 const websiteTypes = [
   'Business Website',
@@ -48,6 +49,86 @@ const timelines = [
   '3-6 months',
   'Flexible / Not urgent',
 ];
+
+/**
+ * Custom hook to manage the contact form state and behavior.
+ * @returns All the state and handlers needed by the Contact View.
+ */
+export function ContactViewModel() {
+  // ── State ──────────────────────────────────
+  const [form, setForm] = useState<FormState>(INITIAL_FORM);
+  const [status, setStatus] = useState<SubmitStatus>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
+
+  // ── Derived state (computed values) ────────
+  const isLoading = status === 'loading';
+  const isSuccess = status === 'success';
+  const isError = status === 'error';
+
+  // ── Handlers ───────────────────────────────
+
+  // Handles any input, textarea, select, or checkbox change
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement> | {
+      target: {
+        checked?: boolean;
+        name?: string;
+        type?: string;
+        value: unknown;
+      };
+    }
+  ) => {
+    const { name, value, type } = e.target;
+    if (!name) return;
+
+    setForm((prev) => ({
+      ...prev,
+      [name]: type === 'checkbox' ? Boolean(e.target.checked) : String(value ?? ''),
+    }));
+  };
+
+  // Validates form before calling the Model's submit function
+  const handleSubmit = async (e: SubmitEvent) => {
+    e.preventDefault();
+    setStatus('loading');
+    setErrorMsg('');
+    
+    // Validation lives here in the ViewModel, not in the View
+    if (!form.agreement) {
+      setErrorMsg('Please agree to the terms before submitting.');
+      setStatus('error');
+      return;
+    }
+
+    try {
+      // ViewModel calls the Model — View never does this directly
+      await SendEmailAsync(form);
+      setStatus('success');
+      setForm(INITIAL_FORM);
+    } catch (err: unknown) {
+      setStatus('error');
+      setErrorMsg(
+        err instanceof Error
+          ? err.message
+          : 'Failed to send message. Please try again.',
+      );
+    }
+  };
+
+  // ── Expose to View ─────────────────────────
+  // The View only sees what the ViewModel decides to expose.
+  // No raw setState, no fetch logic — just clean data and handlers.
+  return {
+    form,
+    isLoading,
+    isSuccess,
+    isError,
+    errorMsg,
+    handleChange,
+    handleSubmit,
+  };
+}
+
 
 export function Contact() {
   const {
