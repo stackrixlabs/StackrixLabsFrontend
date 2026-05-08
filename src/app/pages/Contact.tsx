@@ -54,7 +54,7 @@ const timelines = [
  * Custom hook to manage the contact form state and behavior.
  * @returns All the state and handlers needed by the Contact View.
  */
-export function ContactViewModel() {
+export function SubmitContact() {
   // ── State ──────────────────────────────────
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
   const [status, setStatus] = useState<SubmitStatus>('idle');
@@ -139,7 +139,7 @@ export function Contact() {
     errorMsg,
     handleChange,
     handleSubmit,
-  } = ContactViewModel();
+  } = SubmitContact();
 
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
