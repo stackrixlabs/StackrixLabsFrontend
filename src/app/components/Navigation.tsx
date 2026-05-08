@@ -21,8 +21,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 const navItems = [
   { label: 'Home', to: '/' },
-  { label: 'About', to: '/about' },
-  { label: 'Portfolio', to: '/portfolio' },
+  { label: 'About', to: '/about' }
 ];
 
 export function Navigation() {

@@ -17,7 +17,6 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 const quickLinks = [
   { label: 'Home', to: '/' },
   { label: 'About', to: '/about' },
-  { label: 'Portfolio', to: '/portfolio' },
   { label: 'Contact', to: '/contact' },
 ];
 

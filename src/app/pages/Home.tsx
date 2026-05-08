@@ -8,7 +8,6 @@ import {
   CardContent,
   Chip,
   Container,
-  Paper,
   Stack,
   Typography,
 } from '@mui/material';
@@ -26,7 +25,6 @@ import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import SecurityIcon from '@mui/icons-material/Security';
 import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import StarIcon from '@mui/icons-material/Star';
 
 type ImageWithFallbackProps = ImgHTMLAttributes<HTMLImageElement> & { fallbackSrc?: string };
 
@@ -105,24 +103,6 @@ const reasons = [
   },
 ];
 
-const testimonials = [
-  {
-    name: 'Emily Johnson',
-    role: 'Business Owner',
-    text: 'The website exceeded all our expectations. Professional, fast, and exactly what we needed to grow our online presence.',
-  },
-  {
-    name: 'Michael Chen',
-    role: 'Startup Founder',
-    text: 'Working with a true professional. The attention to detail and communication throughout was exceptional.',
-  },
-  {
-    name: 'Sarah Williams',
-    role: 'Marketing Director',
-    text: 'Our new website has transformed our business. More leads, better engagement, and a modern look we are proud of.',
-  },
-];
-
 export function Home() {
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
@@ -168,15 +148,6 @@ export function Home() {
                 sx={{ bgcolor: 'white', color: 'primary.main', '&:hover': { bgcolor: '#eff6ff' } }}
               >
                 Start Your Project
-              </Button>
-              <Button
-                component={RouterLink}
-                to="/portfolio"
-                size="large"
-                variant="outlined"
-                sx={{ borderColor: 'rgba(255, 255, 255, 0.46)', color: 'white', '&:hover': { borderColor: 'white', bgcolor: 'rgba(255, 255, 255, 0.1)' } }}
-              >
-                View Portfolio
               </Button>
             </Stack>
           </Box>
@@ -244,37 +215,9 @@ export function Home() {
               </Stack>
 
               <Button component={RouterLink} to="/about" endIcon={<ArrowForwardIcon />} sx={{ mt: 4 }}>
-                Learn More About Me
+                Learn More About Us
               </Button>
             </Box>
-          </Box>
-        </Container>
-      </Box>
-
-      <Box component="section" sx={{ background: 'linear-gradient(135deg, #2563eb, #7c3aed)', color: 'white', py: { xs: 8, md: 10 } }}>
-        <Container maxWidth="lg">
-          <Box sx={{ textAlign: 'center', mb: 6 }}>
-            <Typography variant="h2" sx={{ fontSize: { xs: 34, md: 44 }, mb: 1.5 }}>
-              What Clients Say
-            </Typography>
-            <Typography sx={{ color: 'rgba(255, 255, 255, 0.78)' }}>Real feedback from satisfied clients</Typography>
-          </Box>
-
-          <Box sx={{ display: 'grid', gap: 3, gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' } }}>
-            {testimonials.map((testimonial) => (
-              <Paper key={testimonial.name} elevation={0} sx={{ bgcolor: 'rgba(255, 255, 255, 0.12)', border: '1px solid rgba(255, 255, 255, 0.22)', color: 'white', p: 3 }}>
-                <Stack direction="row" spacing={0.5} sx={{ mb: 2 }}>
-                  {Array.from({ length: 5 }).map((_, index) => (
-                    <StarIcon key={index} fontSize="small" sx={{ color: '#facc15' }} />
-                  ))}
-                </Stack>
-                <Typography sx={{ color: 'rgba(255, 255, 255, 0.88)', mb: 3 }}>&quot;{testimonial.text}&quot;</Typography>
-                <Typography sx={{ fontWeight: 800 }}>{testimonial.name}</Typography>
-                <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.68)' }}>
-                  {testimonial.role}
-                </Typography>
-              </Paper>
-            ))}
           </Box>
         </Container>
       </Box>

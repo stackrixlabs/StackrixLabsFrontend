@@ -20,6 +20,12 @@ import PublicIcon from '@mui/icons-material/Public';
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import StorageIcon from '@mui/icons-material/Storage';
 import TrackChangesIcon from '@mui/icons-material/TrackChanges';
+import BusinessIcon from '@mui/icons-material/Business';
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import ArticleIcon from '@mui/icons-material/Article';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+import SchoolIcon from '@mui/icons-material/School';
 
 type ImageWithFallbackProps = ImgHTMLAttributes<HTMLImageElement> & { fallbackSrc?: string };
 
@@ -41,7 +47,7 @@ function ImageWithFallback({ src, alt, fallbackSrc = '/images/fallback.png', ...
 const expertise = [
   {
     title: 'Full-Stack Development',
-    text: 'End-to-end development using software tools such as React, Node.js, and modern frameworks to build scalable web applications.',
+    text: 'End-to-end development using software tools such as React, typescript , and modern frameworks to build scalable software applications.',
     icon: CodeIcon,
     color: '#2563eb',
   },
@@ -114,6 +120,17 @@ const values = [
   },
 ];
 
+const projectTypes = [
+  { icon: BusinessIcon, title: 'Business Sites'},
+  { icon: StorefrontIcon, title: 'E-Commerce'},
+  { icon: BrushIcon, title: 'Portfolios'},
+  { icon: SmartphoneIcon, title: 'Web Apps' },
+  { icon: ArticleIcon, title: 'Landing Pages'},
+  { icon: RestaurantIcon, title: 'Restaurant Sites' },
+  { icon: LocalHospitalIcon, title: 'Healthcare' },
+  { icon: SchoolIcon, title: 'Educational' },
+];
+
 export function About() {
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
@@ -156,6 +173,20 @@ export function About() {
           <Box sx={{ display: 'grid', gap: 3, gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' } }}>
             {expertise.map((item) => (
               <ExpertiseCard key={item.title} {...item} />
+            ))}
+          </Box>
+        </Container>
+      </Box>
+
+      <Box component="section" sx={{ bgcolor: '#f9fafb', py: { xs: 8, md: 10 } }}>
+        <Container maxWidth="lg">
+          <SectionIntro
+            title="What We Can Build For You"
+            text="From simple landing pages to complex web applications, we have experience building all types of software."
+          />
+          <Box sx={{ display: 'grid', gap: 2.5, gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' } }}>
+            {projectTypes.map((type) => (
+              <ProjectTypeCard key={type.title} {...type} />
             ))}
           </Box>
         </Container>
@@ -269,5 +300,21 @@ function ValueCard({ title, text, icon: Icon }: {
       </Typography>
       <Typography sx={{ color: 'rgba(255, 255, 255, 0.78)' }}>{text}</Typography>
     </Paper>
+  );
+}
+
+function ProjectTypeCard({ icon: Icon, title}: {
+  icon: ElementType;
+  title: string;
+}) {
+  return (
+    <Card elevation={0} sx={{ border: '1px solid', borderColor: 'divider', height: '100%', textAlign: 'center' }}>
+      <CardContent sx={{ p: 3 }}>
+        <Avatar variant="rounded" sx={{ bgcolor: '#eff6ff', color: 'primary.main', height: 56, mx: 'auto', mb: 2, width: 56 }}>
+          <Icon />
+        </Avatar>
+        <Typography sx={{ fontWeight: 800, mb: 0.5 }}>{title}</Typography>
+      </CardContent>
+    </Card>
   );
 }

@@ -136,7 +136,7 @@ export function Contact() {
               }}
             >
               <Typography variant="h2" sx={{ fontSize: { xs: 26, md: 30 }, mb: 3 }}>
-                Send Me a Message
+                Send Us a Message
               </Typography>
 
               {isSuccess && (

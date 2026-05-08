@@ -13,20 +13,12 @@ import {
   Typography,
 } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import ArticleIcon from '@mui/icons-material/Article';
-import BrushIcon from '@mui/icons-material/Brush';
-import BusinessIcon from '@mui/icons-material/Business';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CodeIcon from '@mui/icons-material/Code';
 import DesignServicesIcon from '@mui/icons-material/DesignServices';
-import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import RestaurantIcon from '@mui/icons-material/Restaurant';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
-import SchoolIcon from '@mui/icons-material/School';
 import SearchIcon from '@mui/icons-material/Search';
-import SmartphoneIcon from '@mui/icons-material/Smartphone';
-import StorefrontIcon from '@mui/icons-material/Storefront';
 
 type ImageWithFallbackProps = ImgHTMLAttributes<HTMLImageElement> & { fallbackSrc?: string };
 
@@ -99,17 +91,6 @@ const projects = [
   },
 ];
 
-const projectTypes = [
-  { icon: BusinessIcon, title: 'Business Sites', count: '15+ Projects' },
-  { icon: StorefrontIcon, title: 'E-Commerce', count: '10+ Projects' },
-  { icon: BrushIcon, title: 'Portfolios', count: '12+ Projects' },
-  { icon: SmartphoneIcon, title: 'Web Apps', count: '8+ Projects' },
-  { icon: ArticleIcon, title: 'Landing Pages', count: '20+ Projects' },
-  { icon: RestaurantIcon, title: 'Restaurant Sites', count: '6+ Projects' },
-  { icon: LocalHospitalIcon, title: 'Healthcare', count: '5+ Projects' },
-  { icon: SchoolIcon, title: 'Educational', count: '4+ Projects' },
-];
-
 const processSteps = [
   {
     title: 'Consultation & Planning',
@@ -165,20 +146,6 @@ export function Portfolio() {
           <Box sx={{ display: 'grid', gap: 4, gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' } }}>
             {projects.map((project) => (
               <ProjectCard key={project.title} {...project} />
-            ))}
-          </Box>
-        </Container>
-      </Box>
-
-      <Box component="section" sx={{ bgcolor: '#f9fafb', py: { xs: 8, md: 10 } }}>
-        <Container maxWidth="lg">
-          <SectionIntro
-            title="What We Can Build For You"
-            text="From simple landing pages to complex web applications, we have experience building all types of software."
-          />
-          <Box sx={{ display: 'grid', gap: 2.5, gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' } }}>
-            {projectTypes.map((type) => (
-              <ProjectTypeCard key={type.title} {...type} />
             ))}
           </Box>
         </Container>
@@ -251,17 +218,6 @@ export function Portfolio() {
   );
 }
 
-function SectionIntro({ title, text }: { title: string; text: string }) {
-  return (
-    <Box sx={{ textAlign: 'center', maxWidth: 760, mx: 'auto', mb: 6 }}>
-      <Typography variant="h2" sx={{ fontSize: { xs: 34, md: 44 }, mb: 2 }}>
-        {title}
-      </Typography>
-      <Typography color="text.secondary">{text}</Typography>
-    </Box>
-  );
-}
-
 function ProjectCard({ title, category, description, image, tags, color }: {
   title: string;
   category: string;
@@ -295,26 +251,6 @@ function ProjectCard({ title, category, description, image, tags, color }: {
         <Button endIcon={<OpenInNewIcon />} sx={{ color }}>
           View Case Study
         </Button>
-      </CardContent>
-    </Card>
-  );
-}
-
-function ProjectTypeCard({ icon: Icon, title, count }: {
-  icon: ElementType;
-  title: string;
-  count: string;
-}) {
-  return (
-    <Card elevation={0} sx={{ border: '1px solid', borderColor: 'divider', height: '100%', textAlign: 'center' }}>
-      <CardContent sx={{ p: 3 }}>
-        <Avatar variant="rounded" sx={{ bgcolor: '#eff6ff', color: 'primary.main', height: 56, mx: 'auto', mb: 2, width: 56 }}>
-          <Icon />
-        </Avatar>
-        <Typography sx={{ fontWeight: 800, mb: 0.5 }}>{title}</Typography>
-        <Typography color="text.secondary" variant="body2">
-          {count}
-        </Typography>
       </CardContent>
     </Card>
   );
