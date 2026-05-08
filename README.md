@@ -1,8 +1,10 @@
   ## Running the code
 
-  Run `npm i` to install the dependencies.
+  Run `yarn install` to install the dependencies.
 
-  Run `npm run dev` to start the development server.
+  Run `yarn dev` to start the development server.
 
-  Run `npm run deploy` to deploy it to github page.
+  Run `yarn deploy` to deploy it to GitHub Pages.
+
+  The app is configured to run from `/src`, so the deployed site should be served from that path.
   
