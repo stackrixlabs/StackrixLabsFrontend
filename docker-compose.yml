@@ -1,0 +1,24 @@
+services:
+  web:
+    build:
+      context: .
+      target: runtime
+    image: stackrix-labs-frontend:local
+    ports:
+      - "${PORT:-8080}:80"
+    restart: unless-stopped
+
+  dev:
+    profiles:
+      - dev
+    build:
+      context: .
+      target: development
+    image: stackrix-labs-frontend-dev:local
+    ports:
+      - "${DEV_PORT:-5173}:5173"
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+    volumes:
+      - .:/app
+      - /app/node_modules
